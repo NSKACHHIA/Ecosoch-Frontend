@@ -49,6 +49,7 @@ import LatestDesc from "./components/Latest/LatestDesc";
 import LatestEventDesc from "./components/Latest/LatestEventDesc";
 import ProjectDesc from "./components/ProjectDescription/ProjectDesc";
 import BlogDesc from "./components/Blogs/BlogDesc";
+import ScrollTop from "./components/ScrollTop";
 
 function App() {
   window.addEventListener("scroll", function () {
@@ -66,6 +67,7 @@ function App() {
     <Fragment>
       <Header />
       <BrowserRouter>
+        <ScrollTop />
         <Routes>
           <Route path="/" Component={Home} />
           <Route path="/projects" Component={Projects} />

@@ -3,50 +3,25 @@ import ProjectDescBanner from "./ProjectDescBanner";
 import { Container } from "react-bootstrap";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
-import { library } from "@fortawesome/fontawesome-svg-core";
 import Slider from "react-slick";
 import { TfiAngleLeft, TfiAngleRight } from "react-icons/tfi";
 
 function ProjectDesc() {
   var settings = {
+    className: "center",
     dots: false,
     infinite: true,
+    centerMode: true,
     speed: 500,
     slidesToShow: 3,
-    slidesToScroll: 3,
+    slidesToScroll: 1,
+    centerPadding: "60px",
     initialSlide: 0,
     autoplay: true,
     autoplaySpeed: 2000,
 
     nextArrow: <TfiAngleRight />,
     prevArrow: <TfiAngleLeft />,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          infinite: true,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2,
-          infinite: true,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          infinite: true,
-        },
-      },
-    ],
   };
   const { _ID } = useParams();
 
@@ -63,7 +38,7 @@ function ProjectDesc() {
         );
         setrelated(allProjects.data);
         setproject(response.data);
-        // console.log(response.data);
+        console.log(response.data);
       } catch (error) {
         console.log("Error", error);
       }

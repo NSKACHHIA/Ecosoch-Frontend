@@ -1,7 +1,24 @@
-import React, { Fragment } from 'react'
-import './Commercial.css'
+import React, { Fragment, useEffect, useState } from "react";
+import "./Commercial.css";
+import axios from "axios";
 
 function CommercialBanner() {
+  const [com, setcom] = useState([]);
+  useEffect(() => {
+    const fetchCom = async () => {
+      try {
+        const res = await axios.get(
+          `${process.env.REACT_APP_API_URL_ECOSOCH}/api/auth/list/CommercialTop`
+        );
+        // console.log(res.data[0]);
+        setcom(res.data[0]);
+      } catch (error) {
+        console.log("Error", error);
+      }
+    };
+    fetchCom();
+  }, []);
+
   return (
     <Fragment>
       <div className="rts-bread-crumb-area com-bg bg-bread">
@@ -12,10 +29,7 @@ function CommercialBanner() {
                 <div className="wrapper">
                   <div className="title  bread">
                     <div className="word-line">
-                      <p className="img-hv">
-                        Krishi Polymers Saves Rs. 1 Lakh per Month on Power
-                        Bills.
-                      </p>
+                      <p className="img-hv">{com.Title}</p>
                     </div>
                   </div>
                 </div>
@@ -28,4 +42,4 @@ function CommercialBanner() {
   );
 }
 
-export default CommercialBanner
+export default CommercialBanner;

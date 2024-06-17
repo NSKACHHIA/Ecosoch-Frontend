@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Container, Modal } from "react-bootstrap";
 import {
   EmailShareButton,
@@ -17,8 +17,25 @@ import {
 import { RiCloseLargeLine, RiFullscreenFill } from "react-icons/ri";
 import { IoShareSocial } from "react-icons/io5";
 import { Dropdown } from "react-bootstrap";
+import axios from "axios";
 
 function HowItWorks() {
+  const [how, setHow] = useState([]);
+  useEffect(() => {
+    const fetchHow = async () => {
+      try {
+        const res = await axios.get(
+          `${process.env.REACT_APP_API_URL_ECOSOCH}/api/auth/list-active/HowItWorks`
+        );
+        setHow(res.data);
+        console.log(res.data);
+      } catch (error) {
+        console.log("Error", error);
+      }
+    };
+    fetchHow();
+  }, []);
+
   function toggleFullScreen(element) {
     if (!document.fullscreenElement) {
       element.requestFullscreen().catch((err) => {
@@ -58,7 +75,32 @@ function HowItWorks() {
               </div>
               <div className="accordion-solar-faq">
                 <div className="accordion" id="accordionExample">
-                  <div className="accordion-item">
+                  {how?.map((how, index) => (
+                    <div key={index} className="accordion-item">
+                      <h2 className="accordion-header" id="headingThree">
+                        <button
+                          className="accordion-button collapsed"
+                          type="button"
+                          data-bs-toggle="collapse"
+                          data-bs-target={`#${index}`}
+                          aria-expanded="false"
+                          aria-controls="collapseThree"
+                        >
+                          {how.title}
+                        </button>
+                      </h2>
+                      <div
+                        id={index}
+                        className="accordion-collapse collapse"
+                        aria-labelledby="headingThree"
+                        data-bs-parent="#accordionExample"
+                      >
+                        <div className="accordion-body">{how.Description}</div>
+                      </div>
+                    </div>
+                  ))}
+
+                  {/* <div className="accordion-item">
                     <h2 className="accordion-header" id="headingOne">
                       <button
                         className="accordion-button"
@@ -200,7 +242,7 @@ function HowItWorks() {
                         project execution will be rewarded fairly and promptly.{" "}
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

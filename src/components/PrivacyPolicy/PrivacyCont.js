@@ -1,8 +1,25 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import "./Privacy.css";
+import axios from "axios";
 
 function PrivacyCont() {
+  const [privacy, setPrivacy] = useState([]);
+  useEffect(() => {
+    const fetchPrivacy = async () => {
+      try {
+        const res = await axios.get(
+          `${process.env.REACT_APP_API_URL_ECOSOCH}/api/auth/list/PrivacyPolicy`
+        );
+        // console.log(res.data);
+        setPrivacy(res.data);
+      } catch (error) {
+        console.log("Error", error);
+      }
+    };
+    fetchPrivacy();
+  }, []);
+
   return (
     <Fragment>
       <Container fluid style={{ width: "85%" }}>
@@ -32,23 +49,22 @@ function PrivacyCont() {
             https://ecosoch.com, unless otherwise defined in this Privacy
             Policy.
           </p>
-          <div className="row">
-            <div className="col-lg-12">
-              <div className="solari-title-area-three">
-                <span className="pre-title privacy-heads">
-                  Information Collection and Use
-                </span>
+          {privacy?.map((data, index) => (
+            <div id={index} className="ptb--50">
+              <div className="row">
+                <div className="col-lg-12">
+                  <div className="solari-title-area-three">
+                    <span className="pre-title privacy-heads">
+                      {data.Title}
+                    </span>
+                  </div>
+                </div>
               </div>
+              <div dangerouslySetInnerHTML={{ __html: data.Description }}></div>
             </div>
-          </div>
-          <p className="disc">
-            For a better experience while using our Service, we may require you
-            to provide us with certain personally identifiable information,
-            including but not limited to your name, phone number, and postal
-            address. The information that we collect will be used to contact or
-            identify you.
-          </p>
-          <div className="row">
+          ))}
+
+          {/* <div className="row">
             <div className="col-lg-12">
               <div className="solari-title-area-three">
                 <span className="pre-title privacy-heads">Log Data</span>
@@ -173,7 +189,7 @@ function PrivacyCont() {
             you of any changes by posting the new Privacy Policy on this page.
             These changes are effective immediately, after they are posted on
             this page. This privacy policy was created with the GDPR Generator.
-          </p>
+          </p> */}
           <div className="row">
             <div className="col-lg-12">
               <div className="solari-title-area-three">

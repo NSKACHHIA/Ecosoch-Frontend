@@ -1,8 +1,24 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { Fragment } from "react";
 import { Container } from "react-bootstrap";
 
 function MediaCoverage() {
+  const [media, setMedia] = useState([]);
+  useEffect(() => {
+    const fetchMedia = async () => {
+      try {
+        const res = await axios.get(
+          `${process.env.REACT_APP_API_URL_ECOSOCH}/api/auth/list/PrivacyPolicy`
+        );
+        console.log(res.data);
+        setMedia(res.data);
+      } catch (error) {
+        console.log("Error", error);
+      }
+    };
+    fetchMedia();
+  }, []);
   return (
     <Fragment>
       <div className="media-banner">
@@ -30,7 +46,14 @@ function MediaCoverage() {
         </div>
       </div>
       <Container fluid style={{ width: "85%" }} className="ptb--100">
-        <div className="fusion-text fusion-text-1">
+        {media?.map((data) => (
+          <div
+            className="fusion-text fusion-text-1"
+            dangerouslySetInnerHTML={{ __html: data.Description }}
+          ></div>
+        ))}
+
+        {/* <div className="fusion-text fusion-text-1">
           <p>
             In 2019, EcoSoch commissioned a 105.4 kWp rooftop project for ARK
             Serene County in Whitefield which is touted to be{" "}
@@ -58,7 +81,7 @@ function MediaCoverage() {
             </a>
           </p>
           <p>&nbsp;</p>
-        </div>
+        </div> */}
       </Container>
     </Fragment>
   );

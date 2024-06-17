@@ -19,17 +19,6 @@ function JoinUs() {
                     can make a significant impact on the adoption of solar
                   </h4>
                 </div>
-                {/* <!-- <div className="right-area">
-                                <form action="#" className="cta-form">
-                                    <div className="single-input">
-                                        <input type="text" placeholder="Your Name" required=""/>
-                                    </div>
-                                    <div className="single-input">
-                                        <input type="text" placeholder="Your Email" required=""/>
-                                    </div>
-                                    <button className="rts-btn btn-primary">Get It Now</button>
-                                </form>
-                            </div> --> */}
               </div>
             </div>
           </div>

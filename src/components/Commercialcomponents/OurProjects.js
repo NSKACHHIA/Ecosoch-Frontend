@@ -10,7 +10,7 @@ function OurProjects() {
           `${process.env.REACT_APP_API_URL_ECOSOCH}/api/auth/list/projectdetail`
         );
         setOurProjects(allProjects.data);
-        console.log("all", allProjects.data);
+        // console.log("all", allProjects.data);
       } catch (error) {
         console.log("Error : ", error);
       }
